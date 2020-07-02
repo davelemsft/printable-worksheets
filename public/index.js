@@ -1,10 +1,10 @@
 "use strict";
-(() => {
+(async () => {
   let x, y, isPainting;
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  const colors = ["red", "blue", "green", "yellow", "pink", "orange", "black"];
+  const { setupPallet } = await import("./scripts/colours.js");
 
   const scaleToFill = (img, ctx) => {
     const scale = Math.max(
@@ -20,18 +20,16 @@
     // set dimensions on the canvas
     canvas.setAttribute("width", window.innerWidth);
     canvas.setAttribute("height", window.innerHeight);
-    context.strokeStyle = colors[0];
-    context.lineJoin = "round";
-    context.lineWidth = 5;
 
     const img = new Image();
-    img.src = "/images/colouring-01.png";
+    img.src = "images/colouring-01.png";
     img.addEventListener("load", () => {
       scaleToFill(img, context);
     });
   };
 
   setSize();
+  setupPallet(context);
 
   window.addEventListener("resize", setSize);
 
