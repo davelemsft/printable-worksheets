@@ -1,5 +1,5 @@
 const files = [
-  { label: "Find the differences", path: "Circle the Difference 1.svg" },
+  { label: "🔎 Find the differences", path: "Circle the Difference 1.svg" },
 ].map((f) => ({ ...f, path: `images/differences/${f.path}` }));
 
 const loadFile = (file) => {

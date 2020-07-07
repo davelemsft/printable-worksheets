@@ -1,5 +1,5 @@
 const files = [
-  { label: "Connecet the dots", path: "Connect the dots 1.svg" },
+  { label: "✏ Connecet the dots", path: "Connect the dots 1.svg" },
 ].map((f) => ({ ...f, path: `images/connect-the-dots/${f.path}` }));
 
 const loadFile = (file) => {
