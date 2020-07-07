@@ -27,37 +27,44 @@
   };
 
   setupMenu(
-    colouringFiles
-      .map((f) => {
-        return {
-          ...f,
-          click: bindClick(f, loadColouring),
-        };
-      })
-      .concat(
-        connectTheDotsFiles.map((f) => {
+    [
+      {
+        label: "Colouring",
+        files: colouringFiles.map((f) => {
+          return {
+            ...f,
+            click: bindClick(f, loadColouring),
+          };
+        }),
+      },
+      {
+        label: "Connect the dots",
+        files: connectTheDotsFiles.map((f) => {
           return {
             ...f,
             click: bindClick(f, loadConnectTheDots),
           };
-        })
-      )
-      .concat(
-        differencesFiles.map((f) => {
+        }),
+      },
+      {
+        label: "Find the differences",
+        files: differencesFiles.map((f) => {
           return {
             ...f,
             click: bindClick(f, loadDifferences),
           };
-        })
-      )
-      .concat(
-        mazeFiles.map((f) => {
+        }),
+      },
+      {
+        label: "Mazes",
+        files: mazeFiles.map((f) => {
           return {
             ...f,
             click: bindClick(f, loadMaze),
           };
-        })
-      ),
+        }),
+      },
+    ],
     context
   );
 

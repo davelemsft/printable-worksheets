@@ -60,8 +60,22 @@
   color: #000;
 }
 
+.file ul {
+  list-style: none;
+  padding-left: 10px;
+  font-size: 25px;
+}
+
 .hidden {
   display: none;
+}
+
+.open::before {
+  content: "▼";
+}
+
+.closed::before {
+  content: "▶";
 }
 
 @keyframes glow {

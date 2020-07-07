@@ -1,18 +1,34 @@
 const menu = document.getElementById("menu");
 const menuItems = document.getElementById("menu-options");
 
-const setupMenu = (files, context) => {
+const setupMenu = (groups, context) => {
   menu.addEventListener("click", toggleMenu);
 
-  files.map((file) => {
-    const item = document.createElement("li");
-    item.innerHTML = file.label;
-    item.title = `Select ${file.label}`;
-    item.classList.add("file");
+  groups.map((group) => {
+    const files = group.files;
+    const subMenu = document.createElement("ul");
+    subMenu.classList.add("hidden");
 
-    item.addEventListener("click", file.click);
+    files.map((file) => {
+      const item = document.createElement("li");
+      item.innerHTML = file.label;
+      item.title = `Select ${file.label}`;
 
-    menuItems.appendChild(item);
+      item.addEventListener("click", file.click);
+
+      subMenu.appendChild(item);
+    });
+    const li = document.createElement("li");
+    li.classList.add("file");
+    li.classList.add("closed");
+    li.innerText = group.label;
+    li.appendChild(subMenu);
+    li.addEventListener("click", () => {
+      subMenu.classList.toggle("hidden");
+      li.classList.toggle("open");
+      li.classList.toggle("closed");
+    });
+    menuItems.append(li);
   });
 
   const save = document.createElement("li");
