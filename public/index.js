@@ -16,30 +16,30 @@
   const { loadFile: loadDifferences, files: differencesFiles } = await import(
     "./scripts/differences.js"
   );
+  const { loadFile: loadMaze, files: mazeFiles } = await import(
+    "./scripts/maze.js"
+  );
+
+  const bindClick = (file, fn) => async () => {
+    img = await fn(file);
+    scaleToFill(img, context);
+    hidePallet();
+    hideMenu();
+  };
 
   setupMenu(
     colouringFiles
       .map((f) => {
         return {
           ...f,
-          click: async () => {
-            img = await loadColouring(f);
-            scaleToFill(img, context);
-            hidePallet();
-            hideMenu();
-          },
+          click: bindClick(f, loadColouring),
         };
       })
       .concat(
         connectTheDotsFiles.map((f) => {
           return {
             ...f,
-            click: async () => {
-              img = await loadConnectTheDots(f);
-              scaleToFill(img, context);
-              hidePallet();
-              hideMenu();
-            },
+            click: bindClick(f, loadConnectTheDots),
           };
         })
       )
@@ -47,16 +47,19 @@
         differencesFiles.map((f) => {
           return {
             ...f,
-            click: async () => {
-              img = await loadDifferences(f);
-              scaleToFill(img, context);
-              hidePallet();
-              hideMenu();
-            },
+            click: bindClick(f, loadDifferences),
+          };
+        })
+      )
+      .concat(
+        mazeFiles.map((f) => {
+          return {
+            ...f,
+            click: bindClick(f, loadMaze),
           };
         })
       ),
-      context
+    context
   );
 
   const scaleToFill = (img, ctx) => {
