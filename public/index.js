@@ -5,6 +5,9 @@
   const context = canvas.getContext("2d");
 
   const { setupPallet } = await import("./scripts/colours.js");
+  const { loadFile: loadColouring, files: colouringFiles } = await import(
+    "./scripts/imagination-and-colour.js"
+  );
 
   const scaleToFill = (img, ctx) => {
     const scale = Math.max(
@@ -17,17 +20,12 @@
   };
 
   const setSize = () => {
-    // set dimensions on the canvas
-    canvas.setAttribute("width", window.innerWidth);
-    canvas.setAttribute("height", window.innerHeight);
-
-    const img = new Image();
-    img.src = "images/colouring-01.png";
-    img.addEventListener("load", () => {
-      scaleToFill(img, context);
-    });
+    canvas.setAttribute("width", window.innerWidth - 20);
+    canvas.setAttribute("height", window.innerHeight - 20);
+    scaleToFill(img, context);
   };
 
+  let img = await loadColouring(colouringFiles[0]);
   setSize();
   setupPallet(context);
 
