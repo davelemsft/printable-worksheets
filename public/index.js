@@ -55,7 +55,8 @@
             },
           };
         })
-      )
+      ),
+      context
   );
 
   const scaleToFill = (img, ctx) => {

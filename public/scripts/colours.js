@@ -10,7 +10,7 @@ const standardColours = [
 const pallet = document.getElementById("pallet");
 const coloursList = document.getElementById("colours");
 
-const makeColour = (colour) => {
+const makeColour = (context) => (colour) => {
   const item = document.createElement("li");
   item.classList.add("colour");
   item.style.backgroundColor = colour;
@@ -25,7 +25,7 @@ const makeColour = (colour) => {
 const setupPallet = (context) => {
   pallet.addEventListener("click", togglePallet);
 
-  standardColours.map(makeColour);
+  standardColours.map(makeColour(context));
 
   const input = document.createElement("input");
   input.type = "color";

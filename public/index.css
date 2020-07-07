@@ -54,6 +54,12 @@
   margin-bottom: 10px;
 }
 
+.file a,
+.file a:visited {
+  text-decoration: none;
+  color: #000;
+}
+
 .hidden {
   display: none;
 }
