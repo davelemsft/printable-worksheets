@@ -1,5 +1,9 @@
 const files = [
-  { label: "🗺 Maze", path: "Maze 3.svg" },
+  { label: "🗺 Maze #1", path: "Maze 1.svg" },
+  { label: "🗺 Maze #2", path: "Maze 2.svg" },
+  { label: "🗺 Maze #3", path: "Maze 3.svg" },
+  { label: "🗺 Maze #4", path: "Maze 4.svg" },
+  { label: "🗺 Maze #5", path: "Maze 5.svg" },
 ].map((f) => ({ ...f, path: `images/maze/${f.path}` }));
 
 const loadFile = (file) => {
