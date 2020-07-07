@@ -3,7 +3,7 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
 const scaleToFill = (img, ctx) => {
-  const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+  const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
   const top = canvas.width / 2 - (img.width / 2) * scale;
   const left = canvas.height / 2 - (img.height / 2) * scale;
   const width = img.width * scale;
