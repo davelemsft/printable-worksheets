@@ -119,4 +119,11 @@
   canvas.addEventListener("mouseup", exit);
   canvas.addEventListener("mouseleave", exit);
   canvas.addEventListener("touchend", exit);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.keyCode === 27) {
+      hideMenu();
+      hidePallet();
+    }
+  });
 })();
