@@ -4,9 +4,42 @@
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  const { setupPallet } = await import("./scripts/colours.js");
+  const { setupPallet, hidePallet } = await import("./scripts/colours.js");
+  const { setupMenu, hideMenu } = await import("./scripts/menu.js");
   const { loadFile: loadColouring, files: colouringFiles } = await import(
     "./scripts/imagination-and-colour.js"
+  );
+  const {
+    loadFile: loadConnectTheDots,
+    files: connectTheDotsFiles,
+  } = await import("./scripts/connect-the-dots.js");
+
+  setupMenu(
+    colouringFiles
+      .map((f) => {
+        return {
+          ...f,
+          click: async () => {
+            img = await loadColouring(f);
+            scaleToFill(img, context);
+            hidePallet();
+            hideMenu();
+          },
+        };
+      })
+      .concat(
+        connectTheDotsFiles.map((f) => {
+          return {
+            ...f,
+            click: async () => {
+              img = await loadConnectTheDots(f);
+              scaleToFill(img, context);
+              hidePallet();
+              hideMenu();
+            },
+          };
+        })
+      )
   );
 
   const scaleToFill = (img, ctx) => {
@@ -16,7 +49,10 @@
     );
     const top = canvas.width / 2 - (img.width / 2) * scale;
     const left = canvas.height / 2 - (img.height / 2) * scale;
-    ctx.drawImage(img, top, left, img.width * scale, img.height * scale);
+    const width = img.width * scale;
+    const height = img.height * scale;
+    ctx.clearRect(top, left, width, height);
+    ctx.drawImage(img, top, left, width, height);
   };
 
   const setSize = () => {

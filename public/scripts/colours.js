@@ -8,12 +8,10 @@ const standardColours = [
   "black",
 ];
 
+const pallet = document.getElementById("pallet");
+const coloursList = document.getElementById("colours");
 const setupPallet = (context) => {
-  const pallet = document.getElementById("pallet");
-  const coloursList = document.getElementById("colours");
-  pallet.addEventListener("click", () => {
-    coloursList.classList.toggle("hidden");
-  });
+  pallet.addEventListener("click", togglePallet);
 
   standardColours.map((colour) => {
     const item = document.createElement("li");
@@ -32,4 +30,14 @@ const setupPallet = (context) => {
   context.lineWidth = 5;
 };
 
-export { setupPallet };
+const togglePallet = () => {
+  coloursList.classList.toggle("hidden");
+};
+
+const hidePallet = () => {
+  if (!coloursList.classList.contains("hidden")) {
+    togglePallet();
+  }
+};
+
+export { setupPallet, togglePallet, hidePallet };
