@@ -13,6 +13,9 @@
     loadFile: loadConnectTheDots,
     files: connectTheDotsFiles,
   } = await import("./scripts/connect-the-dots.js");
+  const { loadFile: loadDifferences, files: differencesFiles } = await import(
+    "./scripts/differences.js"
+  );
 
   setupMenu(
     colouringFiles
@@ -33,6 +36,19 @@
             ...f,
             click: async () => {
               img = await loadConnectTheDots(f);
+              scaleToFill(img, context);
+              hidePallet();
+              hideMenu();
+            },
+          };
+        })
+      )
+      .concat(
+        differencesFiles.map((f) => {
+          return {
+            ...f,
+            click: async () => {
+              img = await loadDifferences(f);
               scaleToFill(img, context);
               hidePallet();
               hideMenu();
