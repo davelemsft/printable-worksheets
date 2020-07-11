@@ -61,7 +61,7 @@ function saveLine(x1, y1, x2, y2) {
     window.lineBuffer = [];
   }
 
-  // convert to normalized coordinates
+  // convert to relative coordinates
   x1 = Math.round((x1 - imgLocation.left) / imgLocation.width * 10000);
   y1 = Math.round((y1 - imgLocation.top) / imgLocation.height * 10000);
   x2 = Math.round((x2 - imgLocation.left) / imgLocation.width * 10000);
@@ -69,6 +69,17 @@ function saveLine(x1, y1, x2, y2) {
 
   const c = context.strokeStyle;
   window.lineBuffer.push({ x1, y1, x2, y2, c });
+}
+
+function drawLineRelative(x1, y1, x2, y2, colour) {
+  if (colour) {
+    context.strokeStyle = colour;
+  }
+  x1 = (x1 / 10000 * imgLocation.width) + imgLocation.left;
+  y1 = (y1 / 10000 * imgLocation.height) + imgLocation.top;
+  x2 = (x2 / 10000 * imgLocation.width) + imgLocation.left;
+  y2 = (y2 / 10000 * imgLocation.height) + imgLocation.top;
+  drawLine(x1, y1, x2, y2);
 }
 
 function paint(e) {
@@ -96,4 +107,4 @@ const setupCanvas = (img) => {
   setSize(img);
 };
 
-export { setupCanvas, scaleToFill, context, setSize };
+export { setupCanvas, scaleToFill, context, setSize, drawLineRelative };

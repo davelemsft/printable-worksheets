@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "lite-server -c lite-server.config.json",
+    "start": "lite-server -c lite-server.config.js",
     "build": "echo 'done'"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/aaronpowell/printable-worksheets#readme",
   "devDependencies": {
+    "http-proxy-middleware": "^1.0.5",
     "lite-server": "^2.5.4"
   }
 }

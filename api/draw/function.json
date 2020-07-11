@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "sessions/{session}/draw"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "signalR",
+      "direction": "out",
+      "name": "$return",
+      "hubName": "{session}",
+      "connectionStringSetting": "AzureSignalRConnectionString"
+    }
+  ]
+}

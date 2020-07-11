@@ -1,6 +1,6 @@
 "use strict";
 (async () => {
-  const { setupCanvas, scaleToFill, context, setSize } = await import(
+  const { setupCanvas, scaleToFill, context, setSize, drawLineRelative } = await import(
     "./scripts/canvas.js"
   );
   const { setupPallet, hidePallet } = await import("./scripts/colours.js");
@@ -81,6 +81,45 @@
   window.currentFile = routeInfo;
   if (routeInfo.sessionId) {
     document.body.classList.add("draw-with-friends");
+
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl(`/api/sessions/${routeInfo.sessionId}`)
+      .withAutomaticReconnect()
+      .build();
+
+    connection.on("newLines", function(data) {
+      const isFromThisClient = data.clientId === routeInfo.clientId;
+      if (isFromThisClient) return;
+
+      for (const line of data.lines) {
+        drawLineRelative(line.x1, line.y1, line.x2, line.y2, line.c);
+      }
+    });
+
+    await connection.start();
+
+    setInterval(async () => {
+      if (window.lineBuffer && window.lineBuffer.length) {
+        console.log({
+          user: "1",
+          lines: window.lineBuffer
+        });
+
+        const payload = {
+          clientId: routeInfo.clientId,
+          lines: window.lineBuffer
+        };
+        window.lineBuffer = [];
+
+        await fetch(`/api/sessions/${routeInfo.sessionId}/draw`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+    }, 250);
   }
 
   let img = await routeInfo.load();
@@ -96,13 +135,4 @@
     }
   });
 
-  setInterval(() => {
-    if (window.lineBuffer && window.lineBuffer.length) {
-      console.log({
-        user: "1",
-        lines: window.lineBuffer
-      });
-      window.lineBuffer = [];
-    }
-  }, 250)
 })();
