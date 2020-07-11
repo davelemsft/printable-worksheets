@@ -63,7 +63,8 @@ const setupMenu = (groups, context) => {
       window.location.href = `/${window.currentFile.pageType}-${window.currentFile.index}-${await generateSessionId()}`;
     }
   });
-  menuItems.appendChild(drawWithFriends);};
+  menuItems.appendChild(drawWithFriends);
+};
 
 const toggleMenu = () => menuItems.classList.toggle("hidden");
 
