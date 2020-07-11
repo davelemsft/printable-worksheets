@@ -18,6 +18,7 @@
   const { loadFile: loadMaze, files: mazeFiles } = await import(
     "./scripts/maze.js"
   );
+  const { parseUrl } = await import("./scripts/draw-with-friends.js");
 
   const bindClick = (file, fn) => async () => {
     img = await fn(file);
@@ -68,7 +69,7 @@
     context
   );
 
-  let img = await loadColouring(colouringFiles[0]);
+  let img = await loadColouring(colouringFiles[parseUrl().colouringFileIndex]);
   setupCanvas(img);
   setupPallet(context);
 
