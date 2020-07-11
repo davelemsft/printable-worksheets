@@ -28,7 +28,7 @@
     // reset draw-with-friends mode
     window.history.replaceState(null, document.title, "/");
     document.body.classList.remove("draw-with-friends");
-    
+
     img = await fn(file);
     scaleToFill(img, context);
     hidePallet();
@@ -95,4 +95,14 @@
       hidePallet();
     }
   });
+
+  setInterval(() => {
+    if (window.lineBuffer && window.lineBuffer.length) {
+      // console.log({
+      //   user: "1",
+      //   lines: window.lineBuffer
+      // });
+      window.lineBuffer = [];
+    }
+  }, 250)
 })();

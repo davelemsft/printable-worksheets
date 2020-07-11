@@ -51,10 +51,21 @@ function drawLine(firstX, firstY, secondX, secondY) {
   context.stroke();
 }
 
+function saveLine(x1, y1, x2, y2) {
+  if (!window.currentFile || !window.currentFile.sessionId) return;
+
+  if (!window.lineBuffer) {
+    window.lineBuffer = [];
+  }
+  const c = context.strokeStyle;
+  window.lineBuffer.push({ x1, y1, x2, y2, c });
+}
+
 function paint(e) {
   if (isPainting) {
     let [newX, newY] = getCoordinates(e);
     drawLine(x, y, newX, newY);
+    saveLine(x, y, newX, newY);
     x = newX;
     y = newY;
   }
