@@ -45,7 +45,7 @@ const setupMenu = (groups, context) => {
   menuItems.appendChild(save);
 
   const reset = document.createElement("li");
-  reset.classList.add("file");
+  reset.classList.add("file", "reset-button");
   reset.innerHTML = "🧹 Reset";
   reset.title = "Reset";
   reset.addEventListener("click", () =>

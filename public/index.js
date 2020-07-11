@@ -25,6 +25,10 @@
       pageType,
       index
     };
+    // reset draw-with-friends mode
+    window.history.replaceState(null, document.title, "/");
+    document.body.classList.remove("draw-with-friends");
+    
     img = await fn(file);
     scaleToFill(img, context);
     hidePallet();
@@ -75,6 +79,9 @@
 
   const routeInfo = await parseUrl();
   window.currentFile = routeInfo;
+  if (routeInfo.sessionId) {
+    document.body.classList.add("draw-with-friends");
+  }
 
   let img = await routeInfo.load();
   setupCanvas(img);

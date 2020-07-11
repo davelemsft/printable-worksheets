@@ -87,3 +87,7 @@
     text-shadow: 0px 0px 10px aquamarine;
   }
 }
+
+.draw-with-friends .reset-button {
+  display: none;
+}
