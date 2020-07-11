@@ -52,7 +52,18 @@ const setupMenu = (groups, context) => {
     window.dispatchEvent(new Event("resize"))
   );
   menuItems.appendChild(reset);
-};
+
+  const drawWithFriends = document.createElement("li");
+  drawWithFriends.classList.add("file");
+  drawWithFriends.innerHTML = "🎉 Draw with Friends";
+  drawWithFriends.title = "Draw with Friends";
+  drawWithFriends.addEventListener("click", async () => {
+    const { generateSessionId } = await import("./draw-with-friends.js");
+    if (window.currentFile) {
+      window.location.href = `/${window.currentFile.pageType}-${window.currentFile.index}-${await generateSessionId()}`;
+    }
+  });
+  menuItems.appendChild(drawWithFriends);};
 
 const toggleMenu = () => menuItems.classList.toggle("hidden");
 

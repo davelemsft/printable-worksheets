@@ -20,7 +20,11 @@
   );
   const { parseUrl } = await import("./scripts/draw-with-friends.js");
 
-  const bindClick = (file, fn) => async () => {
+  const bindClick = (file, fn, pageType, index) => async () => {
+    window.currentFile = {
+      pageType,
+      index
+    };
     img = await fn(file);
     scaleToFill(img, context);
     hidePallet();
@@ -31,37 +35,37 @@
     [
       {
         label: "Colouring",
-        files: colouringFiles.map((f) => {
+        files: colouringFiles.map((f, i) => {
           return {
             ...f,
-            click: bindClick(f, loadColouring),
+            click: bindClick(f, loadColouring, "colouring", i),
           };
         }),
       },
       {
         label: "Connect the dots",
-        files: connectTheDotsFiles.map((f) => {
+        files: connectTheDotsFiles.map((f, i) => {
           return {
             ...f,
-            click: bindClick(f, loadConnectTheDots),
+            click: bindClick(f, loadConnectTheDots, "connectthedots", i),
           };
         }),
       },
       {
         label: "Find the differences",
-        files: differencesFiles.map((f) => {
+        files: differencesFiles.map((f, i) => {
           return {
             ...f,
-            click: bindClick(f, loadDifferences),
+            click: bindClick(f, loadDifferences, "differences", i),
           };
         }),
       },
       {
         label: "Mazes",
-        files: mazeFiles.map((f) => {
+        files: mazeFiles.map((f, i) => {
           return {
             ...f,
-            click: bindClick(f, loadMaze),
+            click: bindClick(f, loadMaze, "maze", i),
           };
         }),
       },
@@ -69,7 +73,10 @@
     context
   );
 
-  let img = await loadColouring(colouringFiles[parseUrl().colouringFileIndex]);
+  const routeInfo = await parseUrl();
+  window.currentFile = routeInfo;
+
+  let img = await routeInfo.load();
   setupCanvas(img);
   setupPallet(context);
 
