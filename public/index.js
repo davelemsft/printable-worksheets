@@ -100,11 +100,6 @@
 
     setInterval(async () => {
       if (window.lineBuffer && window.lineBuffer.length) {
-        console.log({
-          user: "1",
-          lines: window.lineBuffer
-        });
-
         const payload = {
           sessionId: routeInfo.sessionId,
           clientId: routeInfo.clientId,
