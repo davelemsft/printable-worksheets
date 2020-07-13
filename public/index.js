@@ -106,6 +106,7 @@
         });
 
         const payload = {
+          sessionId: routeInfo.sessionId,
           clientId: routeInfo.clientId,
           lines: window.lineBuffer
         };
@@ -125,6 +126,14 @@
   let img = await routeInfo.load();
   setupCanvas(img);
   setupPallet(context);
+
+  if (routeInfo.sessionId) {
+    const response = await fetch(`/api/retrieveSession?sessionId=${routeInfo.sessionId}`);
+    const sessionData = await response.json();
+    sessionData.forEach((batch) => {
+      batch.lines.forEach((line) => drawLineRelative(line.x1, line.y1, line.x2, line.y2, line.c));
+    });
+  }
 
   window.addEventListener("resize", () => setSize(img));
 
