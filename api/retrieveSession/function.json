@@ -20,7 +20,7 @@
       "name": "sessionData",
       "databaseName": "draw",
       "collectionName": "draw",
-      "connectionStringSetting": "cosmosConnectionString",
+      "connectionStringSetting": "CosmosConnectionString",
       "sqlQuery": "select * from c where c.sessionId = {sessionId}"
     }
   ]
