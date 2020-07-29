@@ -1,4 +1,4 @@
-let x, y, isPainting;
+let x, y, isPainting, width, height;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
@@ -6,9 +6,9 @@ const scaleToFill = (img, ctx) => {
   const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
   const top = canvas.width / 2 - (img.width / 2) * scale;
   const left = canvas.height / 2 - (img.height / 2) * scale;
-  const width = img.width * scale;
-  const height = img.height * scale;
-  ctx.clearRect(top, left, width, height);
+  width = img.width * scale;
+  height = img.height * scale;
+  ctx.clearRect(0, 0, width, height);
   ctx.drawImage(img, top, left, width, height);
 };
 
