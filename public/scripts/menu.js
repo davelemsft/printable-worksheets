@@ -51,7 +51,19 @@ const setupMenu = (groups, context) => {
   reset.addEventListener("click", () =>
     window.dispatchEvent(new Event("resize"))
   );
+  reset.addEventListener("click", () =>
+    window.dispatchEvent(new Event("resize"))
+  );
   menuItems.appendChild(reset);
+
+  const about = document.createElement("li");
+  about.classList.add("file");
+  about.innerHTML = "💡 About";
+  about.title = "About this app";
+  about.addEventListener("click", () => {
+    window.open("https://github.com/aaronpowell/printable-worksheets");
+  });
+  menuItems.append(about);
 };
 
 const toggleMenu = () => menuItems.classList.toggle("hidden");
